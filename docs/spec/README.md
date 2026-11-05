@@ -16,6 +16,7 @@ Items marked "Open" need an owner decision.
 - [notifications.md](notifications.md): delivering alerts (IDs `NTF-*`).
 - [menu-bar-ui.md](menu-bar-ui.md): menu bar item, popover, rules editor (IDs `UI-*`).
 - [packaging.md](packaging.md): building, signing, and launching the app (IDs `PKG-*`).
+- [EVALUATION.md](EVALUATION.md): how the specs are evaluated before planning starts.
 
 ## Conventions
 

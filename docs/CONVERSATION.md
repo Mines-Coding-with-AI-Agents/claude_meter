@@ -105,3 +105,20 @@ The agent suggested `AGENTS.md` plus per-feature specs, a workflow, and permissi
 Zibo chose `AGENTS.md` with per-feature specs, said not to use any skills so the demo works with raw Claude Code, said not to start planning until told, and asked for rules and guardrails as well.
 The agent wrote `AGENTS.md`, `CLAUDE.md` (imports `AGENTS.md`), `.claude/settings.json`, and nine files in `docs/spec/`: README, product, glossary, probe, polling, history-store, rules-engine, notifications, menu-bar-ui, and packaging.
 Recorded as D-012.
+
+### Turn 7 - Zibo and Agent
+
+Zibo asked to commit and push, which was done as commit `c0632f6`.
+Two stray duplicate log files in `docs/research/` were removed first.
+Zibo then asked how to evaluate the specs before planning.
+The agent proposed five layers: spec lint, scenario walkthroughs, measurements of gating unknowns, a blind-reader review, and owner sign-off.
+Zibo said to create an evaluation markdown file for now and to fold the evaluation into the plan later.
+Created `docs/spec/EVALUATION.md` and recorded D-013.
+
+### Turn 8 - Zibo and Agent
+
+Zibo asked for the development plan in plan mode, including the app design and the agentic architecture, delivered as HTML.
+The agent wrote the plan (milestones M0 to M5, package layout, data flow, agent roles and loop, test strategy, risks) to a plan file outside the repository.
+Zibo accepted the plan and asked to pause it.
+Recorded as D-014.
+Zibo then asked to commit and push.

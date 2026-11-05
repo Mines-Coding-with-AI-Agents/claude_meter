@@ -183,3 +183,26 @@ Status: Accepted
 - Planning has not started. No plan is written and no production code is written until Zibo says so.
 - The hard rules in `AGENTS.md` (no API key, no credential access, no direct API calls, no commits or pushes without being asked) are enforced mechanically in `.claude/settings.json` with deny and ask rules.
 - The first spec drafts were written from the research and decisions, before a requirements interview. They are marked Draft and each has open questions.
+
+## D-013 - Specs are evaluated in layers before planning
+
+Date: 2026-11-05
+Status: Accepted
+
+The specs are evaluated before planning starts, using five layers defined in `docs/spec/EVALUATION.md`: spec lint, scenario walkthroughs, measurements of gating unknowns, a blind-reader review, and owner sign-off.
+For now the evaluation is a document only, and none of the layers has been run.
+When planning starts, the evaluation becomes part of the plan.
+Open: where the lint lives, whether the Draft, Reviewed, Approved gate becomes a hard rule in `AGENTS.md`, and approval to run the measurement probes.
+
+## D-014 - Development plan accepted and paused
+
+Date: 2026-11-05
+Status: Accepted (paused)
+
+Zibo accepted the development plan and asked to pause it.
+The plan has six milestones: M0 spec readiness (the evaluation in `docs/spec/EVALUATION.md`), M1 foundation and risk spike, M2 Core domain, M3 platform integration, M4 UI, M5 hardening and demo.
+The app is a Swift package with `Core` (pure logic), `Platform` (macOS adapters), and `WeekwatchApp` (thin SwiftUI shell).
+Development uses plain Claude Code: an orchestrator session, test-first implementation, a fresh read-only reviewer given only the spec and the diff, and a single gate script (`scripts/check.sh`).
+The plan file lives outside the repository at `/Users/zibo/.claude/plans/encapsulated-booping-fog.md`.
+Until Zibo says to resume: no `docs/plan/` files, no `AGENTS.md` status change, and no production code.
+On resume the first steps are rendering the plan as `docs/plan/plan.html` and starting M0.
