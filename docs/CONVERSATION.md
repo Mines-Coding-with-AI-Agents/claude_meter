@@ -122,3 +122,27 @@ The agent wrote the plan (milestones M0 to M5, package layout, data flow, agent 
 Zibo accepted the plan and asked to pause it.
 Recorded as D-014.
 Zibo then asked to commit and push.
+
+## Session 2 - 2026-11-10
+
+### Turn 1 - Zibo and Agent
+
+Zibo asked for a review of the paused development plan, limited to the three most critical points across technical design, security, and the agentic workflow.
+The agent read the plan file, all specs, the decision log, and `.claude/settings.json`, and checked the flags of the installed `claude` CLI (2.1.322) with `claude --help`, which spends no quota.
+No spec, plan, or code was changed, and no decision was recorded, because the owner has not yet decided on the findings.
+
+Findings:
+
+1. Technical design: the probe contract is unmeasured and the specs disagree about it.
+   D-009 states that the rate limit event fires only when the rounded value changes, `probe.md` O-1 lists the same point as open, and the `probe.md` acceptance criteria treat a clean exit with no event as the failure `noWeeklyData`.
+   If the event is absent on unchanged usage, a quiet week produces failures, backoff (PLL-5), a stale label, and `gone-quiet` notifications, and the RUL-9 last-24-hours rate overestimates because it divides by the span of the readings.
+   Proposed: run the L3 measurements first, add a "confirmed, unchanged" probe outcome, key staleness on the last successful probe, use fixed time windows in the forecast, and log real readings from M1 onward.
+2. Security: the probe launches the owner's fully configured Claude Code agent, unattended, every 5 to 15 minutes.
+   PRB-1 and PRB-2 do not cover user settings, hooks, plugins, MCP servers, `CLAUDE.md`, the working directory, or environment variables other than two.
+   `--bare` cannot be used, because on 2.1.322 it never reads the OAuth login.
+   Proposed: a probe isolation requirement group (empty app-owned working directory, environment allowlist, an explicit flag set such as `--restricted`, `--strict-mcp-config`, `--tools ""`, `--disable-slash-commands`, and a fail-closed check of the stream's init message), verified by a new measurement.
+3. Agentic workflow: the gates check form, and the guardrails are string matches.
+   The deny rules are prefix patterns, the allow-listed `swift test` and the planned `scripts/check.sh` run agent-written code without a prompt, nothing gates `claude` itself, the M2 gate checks test names rather than test content, and the plain Claude Code constraint is not enforced (this session started with a plugin hook asking for skills).
+   Proposed: the built-in Bash sandbox, an `ask` rule for `claude`, a hard-rule source scan inside `check.sh`, a test author separate from the implementer with a captured failing run, and a pinned plain mode for the project.
+
+Zibo then asked to commit and push the conversation log.
